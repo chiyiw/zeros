@@ -60,12 +60,12 @@ load_kernel:
 	mov ch, 0x00	; 磁道序号
 	mov dh, 0x00	; 磁头序号
 	mov cl, 0x02	; 扇区序号（boot_sect占用了第一个扇区，此处从第二个扇区开始读取）
-	mov al, 1		; 要读取的扇区数
+	mov al, 11		; 要读取的扇区数
 	int 0x13		; 调用BIOS的13h中断（从磁盘读取数据到内存）
 	
 	jc disk_error 	; 中断调用时会设置 CF(carry flag)=1，如果未设置，则发生了错误
 
-	mov bl, 1 		; BIOS真正读取到的扇区数存储在 al中
+	mov bl, 11		; BIOS真正读取到的扇区数存储在 al中
 	cmp bl, al		; 此处检查是否读取到了一个扇区
 	jne disk_error
 	popa
@@ -85,8 +85,8 @@ clear_screen:		; 通过重置显示模式来清屏，会导致光标回到（0�
 
 KERNEL_ADDR equ 0x1000 	; 内核载入地址
 VIDEO_MEMORY equ 0xb8000	; 显存位置
-WHITE_ON_BLACK equ 0x0f		; 背景色
-STRING db 'we are in protected mode\n', 0
+WHITE_ON_BLACK equ 0x0c		; 背景色
+STRING db 'we are in protected mode', 0
 
 
 gdt_start:

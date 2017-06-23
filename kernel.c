@@ -1,16 +1,19 @@
-int add(int a, int b)
-{
-    return a + b;
-}
+#include "include/io.h"
+#include "include/screen.h"
 
 void main() {
-    char *video_memory = (char*)0xb8000;
-    video_memory[0] = 'H';
-    video_memory[1] = 0x7f;
-    video_memory[2] = 'i';
-    video_memory[3] = 0x6e;
-    
-    add(2,3);
+    clear_screen();
+    move_cursor(5,0);
+    // put_char('a');
+    // put_char('\r');
+    // put_char('\n');
+    // print("hello\r\nhahaadsgatrafadbtrbfbevbeqrqegevdffegqerberwhergearhewbadsgatrafadbtrbfbevbeqrqegevdffegqerbe rwhergearhewbadsgat rafadbtrbfbevbeqrqegevdffegqerbe rwhergearhewbadsgatrafadbtrbfbevbeqrqegevdffegqerberwhergearhewb");
+
+    print("\r\n---------------------------------------");
+    print("\r\n|            Hello, ZerOS!            |");
+    print("\r\n---------------------------------------");
+
+    print("\r\n\r\n> ");
 
     while(1){}
 }
