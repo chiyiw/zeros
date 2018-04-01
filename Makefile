@@ -10,7 +10,7 @@ kernel.debug: kernel.o main_entry.o
 	ld -o kernel.debug -Ttext 0x1000 main_entry.o kernel.o -m elf_i386
 
 kernel.o: kernel.c include/io.h include/screen.h
-	gcc -m32 -ffreestanding -c kernel.c -o kernel.o -std=gnu99 -Wall -Wextra -Wno-unused-parameter
+	gcc -m32 -ffreestanding -c kernel.c -o kernel.o -std=gnu99 -Wall -Wextra -Wno-unused-parameter -O0 -g
 
 head.bin: head.asm
 	nasm head.asm -l head.lst -o head.bin
@@ -20,7 +20,7 @@ main_entry.o: main_entry.asm
 
 debug: all
 	qemu-system-i386 os.img -s -S & 
-	gdb \
+	gdb -tui \
 	-ex "file kernel.debug" \
 	-ex "target remote localhost:1234" \
 	-ex "set disassembly-flavor intel" \
@@ -29,6 +29,9 @@ debug: all
 	-ex "focus cmd" \
 	-ex "b main" \
 	-ex "c"
+
+debug-cline: all
+	qemu-system-i386 os.img -s -S 
 
 .PHONY: clean
 clean:
