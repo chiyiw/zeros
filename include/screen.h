@@ -1,11 +1,16 @@
+#ifndef _SCREEN_H
+#define _SCREEN_H
+
+#include "io_port.h"
+#include "type.h"
+
 #define REG_SCREEN_CTRL 0x3d4
 #define REG_SCREEN_DATA 0x3d5
 #define FONT_COLOR 0x0f
 #define MAX_SCREEN_COLUMN 80
 #define MAX_SCREEN_ROW 25
-typedef unsigned short u16;
-typedef unsigned char u8;
-char *video_memory = 0xb8000;
+
+char *video_memory = (char*)0xb8000;
 u8 cursor_x;
 u8 cursor_y;
 
@@ -76,3 +81,5 @@ void print(char *str)
         put_c(*str++);
     }
 }
+
+#endif
