@@ -13,5 +13,5 @@ void main() {
 
     idt_init();
     __asm__ __volatile__("int $0x2");
-    __asm__ __volatile__("int $0x3");
+    __asm__ __volatile__("sti");
 }
