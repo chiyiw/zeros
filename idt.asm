@@ -1,13 +1,10 @@
-[extern isr_handler]
-[extern irq_handler]
-[extern irq1_handler]
-
 [global idt_load]
 idt_load:
     mov eax, [esp+4]
     lidt [eax]
     ret
 
+[extern isr_handler]
 [global isr0]
 isr0:
     cli
@@ -17,6 +14,7 @@ isr0:
     sti
     iret
 
+[extern irq_handler]
 [global irq0]
 irq0:
     cli
@@ -26,6 +24,7 @@ irq0:
     sti
     iret
 
+[extern irq1_handler]
 [global irq1]
 irq1:
     cli

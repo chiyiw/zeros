@@ -1,5 +1,6 @@
 #include "include/type.h"
 #include "include/screen.h"
+#include "include/keyboard.h"
 
 // 64 bit
 struct idt_item_struct
@@ -55,12 +56,7 @@ extern void irq1();
 void irq1_handler()
 {
     port_byte_out(0x20, 0x20);
-    // 获取键盘键序号
-    u8 c = port_byte_in(0x60);
-    if (c == 30)
-        put_c('A');
-    else
-        put_c('?');
+    keyboard_irq_handler();
 }
 
 extern void idt_load(u32);

@@ -9,7 +9,7 @@ kernel.bin: kernel.o main_entry.o idt.o
 kernel.debug: kernel.o main_entry.o idt.o
 	ld -o kernel.debug -Ttext 0x1000 main_entry.o idt.o kernel.o -m elf_i386
 
-kernel.o: kernel.c include/io_port.h include/screen.h idt.h idt.o
+kernel.o: kernel.c include/io_port.h include/screen.h include/keyboard.h idt.h idt.o
 	gcc -m32 -ffreestanding -c kernel.c -o kernel.o -std=gnu99 -Wall -Wextra -Wno-unused-parameter -O0 -g
 
 head.bin: head.asm

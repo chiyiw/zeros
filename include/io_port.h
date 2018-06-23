@@ -1,3 +1,6 @@
+#ifndef _IO_PORT_H
+#define _IO_PORT_H
+
 /* 从端口读取一个字节 */
 unsigned char port_byte_in(unsigned short port)
 {
@@ -23,3 +26,5 @@ void port_word_out(unsigned short port, unsigned short data)
 {
     __asm__("out %%ax, %%dx": :"a" (data), "d" (port));
 }
+
+#endif
