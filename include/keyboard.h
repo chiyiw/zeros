@@ -1,3 +1,6 @@
+#ifndef _KEYBOARD_H
+#define _KEYBOARD_H
+
 #include "io_port.h"
 #include "screen.h"
 
@@ -13,3 +16,5 @@ void keyboard_irq_handler()
     if (c >= 0 && c <= 57)
         put_c(key[c]);
 }
+
+#endif

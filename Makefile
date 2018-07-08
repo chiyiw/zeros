@@ -38,7 +38,7 @@ debug-cline: all
 
 .PHONY: clean
 clean:
-	-rm *.o *.lst *.debug *.bin
+	-rm *.o *.lst *.debug *.bin *.img
 
 run: all
 	qemu-system-i386 os.img
