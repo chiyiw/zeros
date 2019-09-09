@@ -18,9 +18,9 @@ u16 get_cursor_offset()
 {
     u16 offset = 0;
     port_byte_out(REG_SCREEN_CTRL, 14);
-    offset = port_byte_in(REG_SCREEN_DATA) << 8;    // 高8位  0000 0001 << 8 = 0000 0001 0000 0000 
+    offset = port_byte_in(REG_SCREEN_DATA) << 8;    // 高8位  0000 0001 << 8 = 0000 0001 0000 0000
     port_byte_out(REG_SCREEN_CTRL, 15);
-    offset += port_byte_in(REG_SCREEN_DATA);        // 低8位  offset(0000 0001 0000 0000) + 0000 0010 
+    offset += port_byte_in(REG_SCREEN_DATA);        // 低8位  offset(0000 0001 0000 0000) + 0000 0010
     return offset;
 }
 
