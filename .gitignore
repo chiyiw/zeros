@@ -1,6 +1,5 @@
 *.o
 *.bin
-*.lst
 *.bk
 .idea/
 .vscode/
@@ -8,3 +7,4 @@ CMakeLists.txt
 cmake-build-debug/
 *.img
 *.debug
+debug/

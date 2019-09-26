@@ -4,7 +4,7 @@
 void main() {
     clear_screen();
     move_cursor(5, 0);
- 
+
     print("\r\n---------------------------------------");
     print("\r\n|            Hello, ZerOS!            |");
     print("\r\n---------------------------------------");
