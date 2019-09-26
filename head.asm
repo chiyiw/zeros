@@ -28,10 +28,10 @@ init_pm:
     jmp BEGIN_PM
 
 BEGIN_PM:
-    mov ebx, STRING         ; 输出字符串
-    mov edx, VIDEO_MEMORY
-    mov ah, WHITE_ON_BLACK
-    call print_string_pm
+    ; mov ebx, STRING         ; 输出字符串
+    ; mov edx, VIDEO_MEMORY
+    ; mov ah, WHITE_ON_BLACK
+    ; call print_string_pm
 
     call KERNEL_ADDR        ; 跳到内核执行
 
@@ -62,7 +62,7 @@ load_kernel:
     mov cl, 0x02        ; 扇区序号（boot_sect占用了第一个扇区，此处从第二个扇区开始读取）
     mov al, 12          ; 要读取的扇区数
     int 0x13            ; 调用BIOS的13h中断（从磁盘读取数据到内存）
-    
+
     jc disk_error       ; 中断调用时会设置 CF(carry flag)=1，如果未设置，则发生了错误
 
     mov bl, 12          ; BIOS真正读取到的扇区数存储在 al中
@@ -89,14 +89,15 @@ WHITE_ON_BLACK equ 0x0c     ; 背景色
 STRING db 'we are in protected mode', 0
 
 
+; GDT 全局段描述表，以8个空字节开始，每个段使用16字节描述
 gdt_start:
 
 gdt_null:
-    dd 0x00         ; dd 4个字节 = 4 db = 2 dw 
+    dd 0x00         ; dd 4个字节 = 4 db = 2 dw
     dd 0x00
 
 gdt_code:
-    dw 0xffff       ; 段限长 0 ~ 15 位，如果段属性 G(第11位)=0, 则单位为 B, G=1，则单位为 4KB。 
+    dw 0xffff       ; 段限长 0 ~ 15 位，如果段属性 G(第11位)=0, 则单位为 B, G=1，则单位为 4KB。
     dw 0x0          ; 基地址的  0 ~ 15 位
     db 0x0          ; 基地址的 17 ~ 23 位
     db 10011010b    ; 段属性  0 ~ 7 位。 0-3:TYPE  4:S  5-6:DPL  7:P （要倒着读）
@@ -118,8 +119,8 @@ gdt_descriptor:
     dw gdt_end - gdt_start - 1
     dd gdt_start
 
-CODE_SEG equ gdt_code - gdt_start
-DATA_SEG equ gdt_data - gdt_start
+CODE_SEG equ gdt_code - gdt_start   ; 代码段在GDT的偏移 = 8字节
+DATA_SEG equ gdt_data - gdt_start   ; 数据段在GDT的偏移 = 16字节
 
 times 510-($-$$) db 0
 dw 0xaa55

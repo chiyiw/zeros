@@ -44,7 +44,7 @@ extern void irq0();
 void irq_handler()
 {
     // 发送0x20, 允许后续中断产生
-    port_byte_out(0x20, 0x20);  
+    port_byte_out(0x20, 0x20);
     // TODO if irq in 8..15, should set slave pic
     // port_byte_out(0xa0, 0x20);
     print("0");
@@ -61,6 +61,9 @@ void irq1_handler()
 
 extern void idt_load(u32);
 
+/*
+ * 中断控制器由两块8259A芯片级联，每个芯片8个中断引脚，支持15种中断信号
+ */
 void idt_init()
 {
     idt_ptr.base = (u32)&idt_items;
@@ -80,7 +83,7 @@ void idt_init()
     port_byte_out(0xa1, 0x01);
     // 设置中断屏蔽字，1为屏蔽中断
     // 此处为 1111 1101，即只开启1号(键盘)中断
-    port_byte_out(0x21, 0xfd);  
+    port_byte_out(0x21, 0xfd);
     port_byte_out(0xa1, 0xff);
 
     for (i=32; i<37; i++)

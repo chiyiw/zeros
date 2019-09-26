@@ -22,7 +22,7 @@ idt.o: idt.asm
 	nasm idt.asm -f elf32 -o idt.o -l idt.lst
 
 debug: all
-	qemu-system-i386 os.img -s -S & 
+	qemu-system-i386 os.img -s -S &
 	gdb -tui \
 	-ex "file kernel.debug" \
 	-ex "target remote localhost:1234" \
@@ -34,7 +34,7 @@ debug: all
 	-ex "c"
 
 debug-cline: all
-	qemu-system-i386 os.img -s -S 
+	qemu-system-i386 os.img -s -S
 
 .PHONY: clean
 clean:
